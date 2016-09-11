@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/repository
+        http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd">
+
+
+	<!-- <import resource="services.xml"/> <import resource="resources/messageSource.xml"/> 
+		<import resource="/resources/themeSource.xml"/> -->
+
+
+
+	<!-- <context:property-placeholder location="jdbc.properties" /> -->
+
+	<!-- <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate"> 
+		<property name="dataSource" ref="dataSource" /> </bean> -->
+
+	<!-- Scans within the base package of the application for @Component classes 
+		to configure as beans -->
+	<!-- <context:component-scan> -->
+	
+	<context:component-scan base-package="rs.crhov.tijanap" />
+	<context:annotation-config />
+
+	<!-- declare beans -->
+
+	<bean id="entitySOAPDao"
+		class="rs.crhov.tijanap.jdbc.EntitySOAPeDAOeImplMySQL" />
+	<bean id="entitySOAPService"
+		class="rs.crhov.tijanap.service.EntitySOAPeDAOServiceImpl" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:rs/crhov/tijanap/jdbc.properties</value>
+		</property>
+	</bean>
+	
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- destroy-method="close" -->
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- <property name="connectionCachingEnabled" value="true" /> -->
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="readExcelFile" name="readExcelFile" class="rs.crhov.tijanap.util.ReadExcelFile"/>
+	<bean id="cSVReader" name="cSVReader" class="rs.crhov.tijanap.util.CSVReader"/>
+	
+	
+	
+	<!-- <bean id="dataSourceTest"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		destroy-method="close"
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="connectionCachingEnabled" value="true" />
+	</bean> -->
+
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+
+</beans>

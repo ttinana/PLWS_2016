@@ -1,0 +1,29 @@
+/**
+ * 
+ */
+package rs.crhov.tijanap.test;
+
+/**
+ * @author tijana.pavicic
+ *
+ */
+
+/**
+ * @param args
+ */
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
+public class TestRunner {
+	
+	public static void main(String[] args) {
+		// Result result = JUnitCore.runClasses(EntitySOAPeDAOeImplTest.class);
+		Result result = JUnitCore.runClasses(ScheduledTaskRunPLWSTest.class);
+		for (Failure failure : result.getFailures()) {
+			System.out.println(failure.toString());
+		}
+		System.out.println(result.wasSuccessful());
+	}
+}
